@@ -1,0 +1,231 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <th:block th:insert="~{index :: libs}"></th:block>
+	<title>BÁO CÁO DOANH SỐ </title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdnout.com/pdfmake/"/>
+ 
+  
+  
+</head>
+<body class="nav-md">
+    <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+    <div class="container body">
+        <div class="main_container">              
+          <!-- page content -->
+          <div class="right_col" role="main">
+            <div class="">
+              <div class="page-title">
+              <div class="title_left">
+                <!-- <h3 style="color:black">BÁO CÁO DOANH SỐ</h3> -->
+                <h3>BÁO CÁO DOANH SỐ</h3>
+              </div>        
+              <div class="title_right">
+              </div>
+              </div>
+              <div class="clearfix"></div>
+              <div class="row" style="color:black">
+                <div class="col-md-12 col-sm-12 ">
+                  <div class="x_panel">
+                  <div class="x_title">
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="thang" >Tháng <span class="required">*</span>
+                      </label> 
+                      <div class="col-md-6 col-sm-6 ">
+                        <input type="number" class="form-control" id="thang" th:value="${thang}" placeholder="Nhập tháng" required="required"> 
+                      </div>
+                    </div>
+                    <div class="item form-group">
+                      <label class="col-form-label col-md-3 col-sm-3 label-align" for="nam">Năm <span class="required">*</span>
+                      </label>  
+                      <div class="col-md-6 col-sm-6 ">
+                        <input type="number" class="form-control" id="nam" th:value="${nam}" placeholder="Nhập năm" required="required"> 
+                      </div>
+                    </div>
+                    <div class="ln_solid"></div>
+                    <div class="item form-group">
+                      <div class="col-md-6 col-sm-6 offset-md-3">
+                      <button class="btn btn-success" type="submit" id="xem" >Xem</button>
+                      </div>
+                    </div>
+                    <!-- </form> -->
+                  </div>
+                  </div>
+                </div>
+              </div>
+                 
+                  <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel">
+                    <div class="x_title">
+                      <h3 style="color:black">Doanh Thu Theo Ngày</h3>
+                      <ul class="nav navbar-right panel_toolbox">
+                      </ul>
+                      <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="card-box table-responsive">
+                        <table id="table_id" class="table table-bordered" style="width:100%">
+                          <caption><h5 style="color:black">Tổng doanh thu : <span id="tongDoanhThu"></span></h5></caption>
+                          <thead class="thead-dark">
+                            <tr>
+                            <th>STT</th>
+                            <th>Ngày</th>
+                            <th>Số lượng tiệc cưới</th>
+                            <th>Doanh Thu</th>
+                            <th>Tỉ lệ</th>
+                            </tr>
+                          </thead>
+                        <tbody style="color:black" id="dsDoanhThuNgay">                       
+                        </tbody>  
+                      </table>
+                      
+                      <div sec:authentication="name" id="userName" style="display: none; visibility: hidden;"></div>
+                    </div>
+                    </div>
+                  </div>
+                  </div>
+                    </div>
+                  </div>
+                    </div>
+                  </div>
+                </div>
+                <footer>
+                  <div class="pull-right">                 
+                  </div>
+                  <div class="clearfix"></div>
+                </footer>
+                <!-- /footer content -->
+              </div>
+            </div>
+            <th:block th:insert="~{index :: jsfiles}"></th:block>
+
+            <!-- Datatables -->
+            <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+            <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+            <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+            <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+            <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+            <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+            <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+            <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+            <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+            <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+            <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+            <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+            <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+            <script src="../vendors/jszip/dist/jszip.min.js"></script>
+            <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+            <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script>
+      var table = $('#table_id').DataTable({
+                dom: 'Bfrtip',
+                order: [ [ 1, 'asc' ] ], 
+                pagingType: "simple_numbers",               
+                lengthMenu: [
+                   [10, 25, 50, -1], 
+                   [10, 25, 50, "All"] 
+                ],
+                
+                buttons: [
+                    'pageLength',
+                    {
+                        extend: 'print',
+                        title: '',
+                        customize: function ( win ) {
+                          // $(win.document.body).empty()
+                          var today = new Date();
+                          var dd = String(today.getDate()).padStart(2, '0');
+                          var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                          var yyyy = today.getFullYear();
+
+                          today = dd + "/" + mm + '/' + '/' + yyyy;
+                                                                             
+                          $(win.document.body).prepend($("<div>", {                            
+                            "style": "height: 50px"
+                          })); 
+
+                          $(win.document.body).prepend($("<h4>", {
+                            text: "Ngày lập báo cáo : " + today,
+                            
+                          })); //before the table
+
+                          $(win.document.body).prepend($("<h1>", {
+                            text: "Báo cáo tháng " + $("#thang").val(),
+                            "style": "margin-left: auto; margin-right: auto;"
+                          })); //before the table
+
+                          $(win.document.body).append($("<div>", {                            
+                            "style": "height: 50px"
+                          })); 
+                          $(win.document.body).append($("<h5>", {
+                            text: "Người lập : " + $("#userName").text(),
+                            
+                          })); //after the table
+                          
+                          
+                        }
+                    }
+                ],
+                language: {
+                  url: "/json/language.json"
+                },
+      })
+      
+      $("#xem").click(function(){
+        //alert("http://localhost:8080/api/ds-doanh-thu-ngay?thang=" + $("#thang").val() + "&nam=" + $("#nam").val())
+        $.ajax("http://localhost:8080/api/ds-doanh-thu-ngay?thang=" + $("#thang").val() + "&nam=" + $("#nam").val())
+          .done(function(data){
+            // alert("Lập báo cáo vào tháng " + $("#thang").val() + " năm " + $("#nam").val() + " thành công")
+            table.clear()
+            $.each(data, function(index, d){
+                //alert(JSON.stringify(d))
+                table.row.add( [
+                    null,
+                    d.ngay,
+                    d.soLuongTiecCuoi,  
+                    new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(d.doanhThuNgay),
+                    (d.tiLe * 100 ) + "%"                                        
+                ] ).draw( false );
+                                
+            }) 
+            table.on( 'order.dt search.dt', function () {
+              table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                  cell.innerHTML = i+1;
+              } );
+            } ).draw();  
+          
+            $.ajax("http://localhost:8080/api/tong-doanh-thu?thang=" + $("#thang").val() + "&nam=" + $("#nam").val())
+              .done(function(data){
+                $("#tongDoanhThu").text(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data))
+              })
+              .fail(function(data){
+                
+                $("#tongDoanhThu").text("")
+              })
+          })
+          .fail(function(){
+            alert("Không thể lập báo cáo vào tháng " + $("#thang").val() + " năm " + $("#nam").val())
+            table.clear().draw()
+            $("#tongDoanhThu").text("")
+          })
+      })
+      $("#xem").click()
+      
+      console.log(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(1000));
+    </script>
+    </div>
+
+
+</body>
+</html>

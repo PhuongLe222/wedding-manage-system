@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>Home Page</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta charset="utf-8">
+    <th:block th:insert="~{index :: libs}"></th:block>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    
+</head>
+<body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+        <div class="container body">
+          <div class="main_container">
+            <!-- page content -->
+            <div class="right_col" role="main">
+              <div class="">
+                <div class="page-title">
+      
+                  <!-- TITLE -->
+                  <div class="title_left fa">
+                    <h3>ÁP DỤNG QUY ĐỊNH PHẠT</h3>
+                  </div>
+      
+                  <div class="title_right">
+                    <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                      <div class="input-group">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <div class="clearfix"></div>
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel">
+                      <div class="x_title">
+        
+                      </div>
+                      <div class="x_content">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="card-box table-responsive">
+                              
+                              <!-- TABLE -->
+                              <table id="table_id" class="table table-bordered" style="width:100%">
+                                <thead class="thead-dark">
+                                  <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Quy định</th>
+                                    <th scope="col">Lựa chọn</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="dsCa">
+                                  <tr>
+                                    <th scope="row">1</th>
+                                    <td>Áp dụng quy định phạt</td>
+                                    <td>
+                                      <input  type="checkbox" id="apDungQuyDinhPhat"  checked data-toggle="toggle" data-on="Sử dụng" data-width="70%" data-height="50%" data-off="Không áp dụng">
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+        
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+               
+      </div>
+    </div>
+   
+    <!-- Custom Theme Scripts -->
+    <script src="../build/js/custom.min.js"></script>
+
+    <script>
+      
+         $.get("http://localhost:8080/api/quy-dinh-phat", function(data){
+          if (data["giaTri"] == "true"){
+            //alert("true")
+            $('#apDungQuyDinhPhat').bootstrapToggle('on')
+          } else{
+            //alert("false")
+            $('#apDungQuyDinhPhat').bootstrapToggle('off')
+          }
+          
+          $('#apDungQuyDinhPhat').change(function() {
+           //alert('Toggle: ' + $(this).prop('checked'))
+            data = {}
+            data["tenThamSo"] = "KiemTraNgayThanhToan"
+            data["giaTri"] = $(this).prop('checked')
+            // alert(JSON.stringify(data))
+            $.ajax({
+              type: "POST",
+              contentType: "application/json",
+              url: "http://localhost:8080/api/cap-nhat-quy-dinh",
+              data: JSON.stringify(data),
+              dataType: "json",
+              success: function(){
+                // alert("Cập nhật thành công")
+                // location.reload();
+              },
+              error: function(XMLHttpRequest, textStatus, errorThrown) {
+                // alert("Cập nhật thất bại")
+                //alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+                location.reload();
+                // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+                //   //alert(d);
+                //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+                //   $("#msg_" + d).addClass("alert alert-danger")
+                // })
+              }
+            })
+          })
+        })
+
+         
+        
+     </script>
+</body>
+</html>

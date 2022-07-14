@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head > 
+    <title>Home Page</title> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <th:block th:fragment="libs">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+        <!-- Custom Theme Style -->
+        <link href="/build/css/custom.min.css" rel="stylesheet">
+        
+        <!-- Font Awesome -->
+        <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- NProgress -->
+        <link href="/vendors/nprogress/nprogress.css" rel="stylesheet">
+        
+        <!-- iCheck -->
+        <link href="/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
+        
+        <!-- Datatables -->    
+        <link href="../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <link href="../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet">
+        <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
+        <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
+        <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="https://cdnout.com/pdfmake/"/>
+
+    </th:block>
+</head>
+<body class="nav-md">
+    <th:block th:fragment="menu-bar">
+      <p id="roleUser" th:text="${role}" style="display: none;visibility: hidden;"></p>
+      <p id="nav-active" th:text="${navActive}" style="display: none;visibility: hidden;"></p>
+      <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">        
+        <th:block th:switch="${role}">
+          <th:block th:case="''" >
+            <th:block th:insert="~{menu-bar :: menu-bar-default}"></th:block>
+          </th:block>
+          <th:block th:case="'admin'">
+            <th:block th:insert="~{menu-bar :: menu-bar-admin}"></th:block>
+          </th:block>
+          <th:block th:case="'bql'">
+            <th:block th:insert="~{menu-bar :: menu-bar-bql}"></th:block>
+          </th:block>
+          <th:block th:case="'nhanvien'">
+            <th:block th:insert="~{menu-bar :: menu-bar-nhan-vien}"></th:block>
+          </th:block>
+        </th:block>
+      </div>
+      
+    </th:block>
+    
+    <th:block th:switch="${role}">
+      <th:block th:case="''" >
+        <th:block th:insert="~{chuc-nang :: chuc-nang-default}"></th:block>
+      </th:block>
+      <th:block th:case="'admin'">
+        <th:block th:insert="~{chuc-nang :: chuc-nang-admin}"></th:block>
+      </th:block>
+      <th:block th:case="'bql'">
+        <th:block th:insert="~{chuc-nang :: chuc-nang-bql}"></th:block>
+      </th:block>
+      <th:block th:case="'nhanvien'">
+        <th:block th:insert="~{chuc-nang :: chuc-nang-nhan-vien}"></th:block>
+      </th:block>
+    </th:block>
+
+    <th:block th:fragment="jsfiles">
+      <!-- jQuery -->
+      <script src="../vendors/jquery/dist/jquery.min.js"></script>
+      <!-- Bootstrap -->
+      <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- FastClick -->
+      <script src="../vendors/fastclick/lib/fastclick.js"></script>
+      <!-- NProgress -->
+      <script src="../vendors/nprogress/nprogress.js"></script>  
+      <!-- Custom Theme Scripts -->
+      <script src="../build/js/custom.min.js"></script>
+    </th:block>
+    
+</body>
+</html>

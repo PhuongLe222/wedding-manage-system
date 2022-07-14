@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <title>DANH SÁCH DỊCH VỤ</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <th:block th:insert="~{index :: libs}"></th:block>
+</head>
+<body class="nav-md">
+  <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+  <div class="container">
+    <!-- Trigger the modal with a button -->  
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <p style="display: none; visibility: hidden;" id="mType">update</p>
+            <h4 class="modal-title" id="mTitle">THÔNG TIN DỊCH VỤ</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row">
+              <label for="tenDichVu" class="col-3 col-form-label" >Tên dịch vụ</label>
+              <div class="col-9">
+                <input class="form-control" type="hidden" value="" id="maDichVu">
+                <input class="form-control" type="text" value="" id="tenDichVu">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="donGia" class="col-3 col-form-label">Đơn giá</label>
+              <div class="col-9">
+                <input class="form-control" type="number" value="" id="donGia">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- PHÂN QUYỀN -->
+            <th:block th:switch="${role}">
+              <th:block th:case="''" >
+                
+              </th:block>
+              <th:block th:case="'admin'">
+                
+              </th:block>
+              <th:block th:case="'bql'">
+                <button type="button" id="capNhat" class="btn btn-success"  data-dismiss="modal">Cập nhât</button>                
+              </th:block>
+              <th:block th:case="'nhanvien'">
+                
+              </th:block>
+            </th:block> 
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="container body">
+    <div class="main_container">
+      <div class="right_col" role="main">
+        <div class="">
+
+          <!-- TITLE -->
+          <div class="page-title">
+
+            <div class="title_left fa">
+              <h3>DANH SÁCH DỊCH VỤ</h3>
+            </div>
+
+            <div class="title_right">
+              <div class="col-md-3 col-sm-6 col-xs-12 form-group pull-right">
+                <div class="input-group">
+                  <th:block th:switch="${role}">
+                    <th:block th:case="''" >
+                      
+                    </th:block>
+                    <th:block th:case="'admin'">
+                      
+                    </th:block>
+                    <th:block th:case="'bql'">
+                      <button class="btn btn-success" data-toggle='modal' data-target='#myModal' id="themThongTinSanh">Thêm dịch vụ</button>
+                    </th:block>
+                    <th:block th:case="'nhanvien'">
+                      
+                    </th:block>
+                  </th:block>  
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="clearfix"></div>
+
+          <!-- CONTENT -->
+          <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+
+                </div>
+                <div class="x_content">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card-box table-responsive">
+      
+                        <!-- TABLE -->
+                        <table id="table_id" class="table table-bordered" style="width:100%">                  
+             
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col" class="can-print">STT</th>
+                              <th scope="col" class="can-print">Tên dịch vụ</th>
+                              <th scope="col" class="can-print">Đơn giá</th>
+                              <th:block th:switch="${role}">
+                                <th:block th:case="''" >
+                                  
+                                </th:block>
+                                <th:block th:case="'admin'">
+                                  
+                                </th:block>
+                                <th:block th:case="'bql'">
+                                  <th scope="col">Tùy chọn</th>
+                                </th:block>
+                                <th:block th:case="'nhanvien'">
+                                  
+                                </th:block>
+                              </th:block> 
+                            </tr>
+                          </thead>
+                          <tbody id="dsDichVu">
+                          </tbody>
+                          
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+   <!-- Datatables -->
+   <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+   <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+   <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+   <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+   <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+   <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+   <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+   <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+   <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+   <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+   <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+   <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+   <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+   <script src="../vendors/jszip/dist/jszip.min.js"></script>
+   <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+   <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+   <!-- Custom Theme Scripts -->
+   <script src="../build/js/custom.min.js"></script>
+
+  <script>     
+    switch($("#roleUser").html()) {
+      case '':
+        $("#myModal input").prop('readonly', true);
+        $("#myModal input").removeClass("form-control")
+        $("#myModal input").addClass("form-control-plaintext")
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                
+                order: [ [ 1, 'asc' ] ],                
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-dich-vu',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": "tenDichVu",
+                      
+                    },               
+                    { 
+                      "data": "tenDichVu",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "donGia",
+                      "targets": 2
+                    },
+                                
+                ],               
+                language: {
+                  url: "/json/language.json"
+                },
+                buttons: [                                                       
+                ],
+                
+            });
+        //alert($("#mTitle").html())
+        break;
+      case 'admin':
+        $("#myModal input").removeClass("form-control")
+        $("#myModal input").addClass("form-control-plaintext")
+        $("#myModal input").prop('readonly', true);
+        break;
+      case 'bql':
+        $("#myModal input").removeClass("form-control-plaintext")
+        $("#myModal input").addClass("form-control")
+        $("#myModal input").prop('readonly', false);
+        $("#mTitle").html("CẬP NHẬT THÔNG TIN DỊCH VỤ")
+        $("#dsLoaiSanh").append($('<tr>', { 
+              "id":  "row-add",
+              "style": " border: 1px solid Transparent!important;"
+        }))
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                dom: 'Bfrtip',
+                order: [ [ 1, 'asc' ] ],               
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-dich-vu',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": "tenDichVu",
+                      
+                    },               
+                    { 
+                      "data": "tenDichVu",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "donGia",
+                      "targets": 2
+                    },
+                    { 
+                      "data": "maDichVu",
+                      "width": "25%",
+                      "targets": 3, 
+                      "render": function( data, type){
+                        
+
+                        return "<button " 
+                        +  "type='button' "
+                        +  "id='cap-nhat-dich-vu' "
+                        +  "stype='margin-left: 3%;' "
+                        +  "class='fa btn btn-success' "
+                        +  "data-toggle='modal' "
+                        +  "data-target='#myModal' "
+                        
+                        + ">" 
+                        + "Cập nhật dịch vụ"
+                        + "</button>"
+                        + "<button " 
+                        +  "type='button' "
+                        +  "id='xoa-dich-vu' "
+                        +  "stype='margin-left: 3%;' "
+                        +  "class='fa btn btn-success' "                                               
+                        + ">" 
+                        + "Xóa dịch vụ"
+                        + "</button>"
+                      }
+                    }              
+                ],
+                buttons: [
+                    'pageLength',                    
+                    // {
+                    //     extend: 'print',
+                    //     exportOptions: {
+                    //         columns: '.can-print'
+                    //     },
+                    //     title: '',
+                    //     customize: function ( win ) {
+                    //       // $(win.document.body).empty()
+                          
+                    //       $(win.document.body).prepend($("<h1>", {
+                    //         text: "Báo cáo tháng " + $("#thang").val()
+                    //       })); //before the table             
+
+                    //       $(win.document.body).append('<h3>Người lập Hoàng</h3>'); //after the table
+                          
+                          
+                    //     }
+                    // }
+                ],
+                language: {
+                  url: "/json/language.json"
+                },
+            });
+        break;
+      case 'nhanvien':
+        $("#myModal input").removeClass("form-control")
+        $("#myModal input").addClass("form-control-plaintext")
+        $("#myModal input").prop('readonly', true);
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                
+                order: [ [ 1, 'asc' ] ],                
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-dich-vu',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": "tenDichVu",
+                      
+                    },               
+                    { 
+                      "data": "tenDichVu",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "donGia",
+                      "targets": 2
+                    },
+                                
+                ],               
+                language: {
+                  url: "/json/language.json"
+                },
+                buttons: [                                                       
+                ],
+                
+            });
+        //alert($("#mTitle").html())
+        break;
+      default:
+        // code block
+    }
+    
+
+      $('#table_id tbody').on( 'click', 'button', function () {
+          var data = table.row( $(this).parents('tr') ).data();
+          // alert(JSON.stringify(data))
+          if ($(this).attr("id") == "cap-nhat-dich-vu"){
+            $.get("http://localhost:8080/api/thong-tin-dich-vu?dvid=" + data.maDichVu, function(data){
+              // alert(JSON.stringify(data))
+              $("#mType").html("update")
+              $("#capNhat").html("Cập nhật")
+              $("#maDichVu").val(data["maDichVu"])
+              $("#tenDichVu").val(data["tenDichVu"])
+              $("#donGia").val(data["donGia"])                  
+            })
+          }
+          if ($(this).attr("id") == "xoa-dich-vu"){
+            if (confirm('Bạn có chắc muốn xóa dữ liệu này?')){
+              $.ajax({              
+                url: '/api/xoa-dich-vu?maDichVu=' + data.maDichVu,
+                type: 'DELETE',
+                success: function(result) {
+                  alert("Xóa thành công")
+                  table.ajax.reload();
+                },
+                error: function(){
+                  alert("Xóa thất bại")
+                }
+
+            });
+            }
+            
+          }
+      } );
+
+      table.on( 'order.dt search.dt', function () {
+          table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+              cell.innerHTML = i+1;
+          } );
+      } ).draw();
+    $("#capNhat").click(function(){
+      //alert("Cap nhat")
+      data = {}
+      data["maDichVu"] = $("#maDichVu").val()
+      data["tenDichVu"] = $("#tenDichVu").val()
+      data["donGia"] = $("#donGia").val()
+      if ($("#mType").html() === "update"){
+        $.ajax({ 
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/api/cap-nhat-dich-vu",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(){
+            alert("Cập nhật thành công")
+            table.ajax.reload();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Cập nhật thất bại")
+            //alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+            // location.reload();
+            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+            //   //alert(d);
+            //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+            //   $("#msg_" + d).addClass("alert alert-danger")
+            // })
+          }
+        })
+    
+      }
+
+      if ($("#mType").html() === "add"){
+        $("#tenDichVu").val("")
+        $("#donGia").val("") 
+        $.ajax({ 
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/api/them-dich-vu",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(){
+            alert("Thêm thành công")
+            table.ajax.reload();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Thêm thất bại")
+            //alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+            // location.reload();
+            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+            //   //alert(d);
+            //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+            //   $("#msg_" + d).addClass("alert alert-danger")
+            // })
+          }
+        })
+      
+      }
+     
+   
+    })
+    
+    $("#themThongTinSanh").click(function(){      
+      $("#capNhat").html("Thêm")
+      $("#mType").html("add")
+
+      $("#mTitle").html("THÊM DỊCH VỤ")
+    })
+  </script>
+</body>
+</html>

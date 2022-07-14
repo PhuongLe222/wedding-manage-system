@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <title>TRA CỨU HÓA ĐƠN</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <th:block th:insert="~{index :: libs}"></th:block>
+</head>
+<body class="nav-md">
+    <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+    <div class="container">
+      <!-- Trigger the modal with a button -->  
+      <!-- Modal -->
+      <div class="modal fade" id="modelMonAn" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="">Danh sách món ăn</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên Món ăn</th>
+                    <th scope="col">Đơn giá</th>
+                    
+                  </tr>
+                </thead>
+                <tbody id="dsMonAn">
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+              <!-- PHÂN QUYỀN -->
+              <th:block th:switch="${role}">
+                <th:block th:case="''" >
+                  
+                </th:block>
+                <th:block th:case="'admin'">
+                  
+                </th:block>
+                <th:block th:case="'bql'">
+                  <button type="button" id="capNhat" class="btn btn-default"  data-dismiss="modal">Cập nhât</button>
+                </th:block>
+                <th:block th:case="'nhanvien'">
+                  
+                </th:block>
+              </th:block> 
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Trigger the modal with a button -->  
+      <!-- Modal -->
+      <div class="modal fade" id="modelDichVu" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="">Danh sách dịch vụ</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-bordered">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên dịch vụ</th>
+                    <th scope="col">Đơn giá</th>
+                  </tr>
+                </thead>
+                <tbody id="dsDichVu">
+          
+                </tbody>
+            </table>
+            </div>
+            <div class="modal-footer">
+              <!-- PHÂN QUYỀN -->
+              <th:block th:switch="${role}">
+                <th:block th:case="''" >
+                  
+                </th:block>
+                <th:block th:case="'admin'">
+                  
+                </th:block>
+                <th:block th:case="'bql'">
+                  <button type="button" id="capNhat" class="btn btn-default"  data-dismiss="modal">Cập nhât</button>
+                </th:block>
+                <th:block th:case="'nhanvien'">
+                  
+                </th:block>
+              </th:block> 
+          </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="container body">
+      <div class="main_container">
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left fa">
+                <!-- <h3 style="color:black">DANH SÁCH TIỆC CƯỚI</h3> -->
+                <h3>DANH SÁCH HÓA ĐƠN</h3>
+              </div>
+    
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="clearfix"></div>
+    
+            <div class="row">
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">                
+                  <div class="x_content">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+                          <table id="table_id" class="table table-bordered" style="width:100%">
+                            <thead class="thead-dark">
+                              <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã hóa đơn</th>
+                                <th scope="col">Mã tiệc cưới</th>
+                                <th scope="col">Tên chú rể</th>
+                                <th scope="col">Tên cô dâu</th>
+                                <th scope="col">Ngày đãi tiệc</th>
+                                <th scope="col">Ngày thanh toán</th>
+                                <th scope="col">Doanh thu</th>
+                                <th:block th:switch="${role}">
+                                  <th:block th:case="''" >
+                                    <th scope="col">Action</th>
+                                  </th:block>
+                                  <th:block th:case="'admin'">
+                                    
+                                  </th:block>
+                                  <th:block th:case="'bql'">
+                                  </th:block>
+                                  <th:block th:case="'nhanvien'">
+                                    <th scope="col">Action</th>
+                                  </th:block>
+                                </th:block> 
+                                
+                              </tr>
+                            </thead>
+                            <tbody id="dsHoaDon">
+                            </tbody>
+      
+                          </table>
+                        </div>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>                    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <th:block th:insert="~{index :: jsfiles}"></th:block>
+
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+  
+    <script>
+      switch ($("#roleUser").html()){
+        case '':
+        
+        case 'admin':
+          break;
+        case 'bql':
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                order: [ [ 1, 'asc' ] ],               
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-hoa-don',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": null,
+                      "targets": 0 
+                    },               
+                    { 
+                      "data": "maHoaDon",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "maTiecCuoi",
+                      "targets": 2
+                    },
+                    { "data": "tenChuRe",
+                      "targets": 3
+                    }, 
+                    { 
+                      "data": "tenCoDau",
+                      "targets": 4
+                    },
+                    { "data": "ngayDaiTiec",
+                      "targets": 5
+                    },                    
+                    { "data": "ngayThanhToan",
+                      "targets": 7,
+                      "render": function(data, type){
+                        // alert(data)
+                        if (data == null){
+                          return "__/__/____"
+                        }
+                        return data
+                      }
+                    },
+                    { "data": "tongTienHoaDon",
+                      "targets": 8,
+                      "render": function(data, type){
+                        // alert(data)
+                        if (data != null){
+                          return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data)
+                        }
+                        return "_____________"
+                      }
+                    },
+                               
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    'pageLength',                    
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: '.can-print'
+                        },
+                        title: '',
+                        customize: function ( win ) {
+                          // $(win.document.body).empty()
+                          
+                          $(win.document.body).prepend($("<h1>", {
+                            text: "Báo cáo tháng " + $("#thang").val()
+                          })); //before the table             
+
+                          $(win.document.body).append('<h3>Người lập Hoàng</h3>'); //after the table
+                          
+                          
+                        }
+                    }
+                ],
+                language: {
+                  url: "/json/language.json"
+                },
+                
+            });
+      
+          break;
+        case 'nhanvien':
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                order: [ [ 1, 'asc' ] ],
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-hoa-don',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": null,
+                      "targets": 0 
+                    },               
+                    { 
+                      "data": "maHoaDon",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "maTiecCuoi",
+                      "targets": 2
+                    },
+                    { "data": "tenChuRe",
+                      "targets": 3
+                    }, 
+                    { 
+                      "data": "tenCoDau",
+                      "targets": 4
+                    },
+                    { "data": "ngayDaiTiec",
+                      "targets": 5
+                    },                    
+                    { "data": "ngayThanhToan",
+                      "targets": 7
+                    },
+                    { 
+                      "data": 'tongTienHoaDon',
+                      "targets": 8,
+                      "render": function(data, type){
+                        //alert(data)
+                        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data)
+                      }
+                    },
+                    { 
+                      'data': 'maTiecCuoi',
+                      "targets": 9, 
+                      "render": function( data, type){
+                        switch ($("#roleUser").html()){
+                          case '':
+                          
+                          case 'admin':
+                            break;
+                          case 'bql':
+                            break;
+                          case 'nhanvien':
+                            return '<a ' 
+                              + 'id="lap-hoa-don" '
+                              + 'class="fa btn btn-primary" '
+                              + 'href=http://localhost:8080/lap-hoa-don-thanh-toan?maTiecCuoi=' + data + ' '
+                              + '>'
+                              + "Lập hóa đơn"
+                              + '</a>'
+                            break;
+                        }
+                        
+                      }
+                    }              
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    'pageLength',                    
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: '.can-print'
+                        },
+                        title: '',
+                        customize: function ( win ) {
+                          // $(win.document.body).empty()
+                          
+                          $(win.document.body).prepend($("<h1>", {
+                            text: "Báo cáo tháng " + $("#thang").val()
+                          })); //before the table             
+
+                          $(win.document.body).append('<h3>Người lập Hoàng</h3>'); //after the table
+                          
+                          
+                        }
+                    }
+                ],
+                language: {
+                  url: "/json/language.json"
+                },
+            });
+      
+          break;
+      }
+      
+      table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+      } ).draw();
+      
+    
+      $('#table_id tbody').on( 'click', 'a', function (e) {
+        var data = table.row( $(this).parents('tr') ).data();
+        // alert(JSON.stringify(data))
+        if ($(this).attr("id") == "lap-hoa-don"){
+          if (data["ngayThanhToan"] != null){
+            e.preventDefault()
+            alert("Hóa đơn này đã được lập")
+          } else{
+
+          }
+         
+        }      
+        
+    } );
+    </script>
+</body>
+</html>

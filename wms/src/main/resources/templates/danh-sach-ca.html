@@ -1,0 +1,440 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+  <title>DANH SÁCH CA</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <th:block th:insert="~{index :: libs}"></th:block>
+
+</head>
+<body class="nav-md">
+  <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+  <div class="container">
+    <!-- Trigger the modal with a button -->  
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <p style="display: none; visibility: hidden;" id="mType">update</p>
+            <h4 class="modal-title" id="mTitle">CẬP NHẬT CA</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group row">
+              <label for="tenCa" class="col-3 col-form-label">Tên ca</label>
+              <div class="col-9">
+                <input class="form-control" type="hidden" value="" id="maCa">
+                <input class="form-control" type="text" value="" id="tenCa">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="gioBatDau" class="col-3 col-form-label">Giờ bắt đầu</label>
+              <div class="col-9">
+                <input class="form-control" type="time" value="13:45:00" id="gioBatDau">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="gioKetThuc" class="col-3 col-form-label">Giờ kết thúc</label>
+              <div class="col-9">
+                <input class="form-control" type="time" value="13:45:00" id="gioKetThuc">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!-- PHÂN QUYỀN -->
+            <th:block th:switch="${role}">
+              <th:block th:case="''" >
+                
+              </th:block>
+              <th:block th:case="'admin'">
+                
+              </th:block>
+              <th:block th:case="'bql'">
+                <button type="button" id="capNhat" class="btn btn-success"  data-dismiss="modal">Cập nhât</button>                
+              </th:block>
+              <th:block th:case="'nhanvien'">
+                
+              </th:block>
+            </th:block> 
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="container body">
+    <div class="main_container">
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
+          <div class="page-title">
+
+            <!-- TITLE -->
+            <div class="title_left fa">
+              <h3>DANH SÁCH CA</h3>
+            </div>
+
+            <div class="title_right">
+              <div class="col-md-3 col-sm-6 col-xs-12 form-group pull-right">
+                <div class="input-group">
+                  <th:block th:switch="${role}">
+                    <th:block th:case="''" >
+                      
+                    </th:block>
+                    <th:block th:case="'admin'">
+                      
+                    </th:block>
+                    <th:block th:case="'bql'">
+                      <button class="btn btn-success" data-toggle='modal' data-target='#myModal' id="themThongTinSanh">Thêm ca</button>
+                    </th:block>
+                    <th:block th:case="'nhanvien'">
+                      
+                    </th:block>
+                  </th:block> 
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+
+                </div>
+                <div class="x_content">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card-box table-responsive">
+                        
+                        <!-- TABLE -->
+                        <table id="table_id" class="table table-bordered" style="width:100%">                  
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col" class="can-print">STT</th>
+                              <th scope="col" class="can-print">Tên ca</th>
+                              <th scope="col" class="can-print">Giờ bắt đầu</th>
+                              <th scope="col" class="can-print">Giờ kết thúc</th>
+                              <th:block th:switch="${role}">
+                                <th:block th:case="''" >
+                                  
+                                </th:block>
+                                <th:block th:case="'admin'">
+                                  
+                                </th:block>
+                                <th:block th:case="'bql'">
+                                  <th scope="col">Tùy chọn</th>
+                                </th:block>
+                                <th:block th:case="'nhanvien'">
+                                  
+                                </th:block>
+                              </th:block> 
+                              
+                            </tr>
+                          </thead>
+                          <tbody id="dsCa">        
+                          </tbody>                          
+                        </table>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datatables -->
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+  <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+  <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+  <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+  <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+  <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+  <script src="../vendors/jszip/dist/jszip.min.js"></script>
+  <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+  <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+
+  <!-- Custom Theme Scripts -->
+  <script src="../build/js/custom.min.js"></script>
+      
+  <script>        
+
+    switch($("#roleUser").html()) {
+      case '':
+        $("input").prop('readonly', true);
+        $("input").removeClass("form-control")
+        $("input").addClass("form-control-plaintext")
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,
+                order: [ [ 1, 'asc' ] ],                
+                language: {
+                  url: "/json/language.json"
+                },
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-ca',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": "tenCa",
+                      "targets": 0 
+                    },               
+                    { 
+                      "data": "tenCa",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "gioBatDau",
+                      "targets": 2
+                    },
+                    { "data": "gioKetThuc",
+                      "targets": 3
+                    }, 
+            
+                ],
+                
+            });
+
+        //alert($("#mTitle").html())
+        break;
+      case 'admin':
+        $("input").removeClass("form-control")
+        $("input").addClass("form-control-plaintext")
+        $("input").prop('readonly', true);
+        break;
+      case 'bql':
+        $("input").removeClass("form-control-plaintext")
+        $("input").addClass("form-control")
+        $("input").prop('readonly', false);
+        $("#mTitle").html("Cập nhật thông tin dịch vụ")
+        $("#dsLoaiSanh").append($('<tr>', { 
+              "id":  "row-add",
+              "style": " border: 1px solid Transparent!important;"
+        }))
+
+        var table = $('#table_id').DataTable({
+                paging: true,
+                select: true,    
+                dom: 'Bfrtip',           
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                ajax: {
+                    url: '/api/ds-ca',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": "tenCa",
+                      "targets": 0 
+                    },               
+                    { 
+                      "data": "tenCa",
+                      "targets": 1 
+                    },
+                    { 
+                      "data": "gioBatDau",
+                      "targets": 2
+                    },
+                    { "data": "gioKetThuc",
+                      "targets": 3
+                    }, 
+                    { 
+                      "data": "maCa",
+                      "width": "20%",
+                      "targets": 4, 
+                      "render": function( data, type){
+                        
+
+                        return "<button " 
+                        +  "type='button' "
+                        +  "id='cap-nhat-ca' "
+                        +  "stype='margin-left: 3%;' "
+                        +  "class='fa btn btn-success' "
+                        +  "data-toggle='modal' "
+                        +  "data-target='#myModal' "
+                        
+                        + ">" 
+                        + "Cập nhật ca"
+                        + "</button>"
+                        + "<button " 
+                        +  "type='button' "
+                        +  "id='xoa-ca' "
+                        +  "stype='margin-left: 3%;' "
+                        +  "class='fa btn btn-success' "                       
+                        + ">" 
+                        + "Xóa ca"
+                        + "</button>"
+                      }
+                    }              
+                ],
+                buttons: [
+                    'pageLength',                    
+                    // {
+                    //     extend: 'print',
+                    //     exportOptions: {
+                    //         columns: '.can-print'
+                    //     },
+                    //     title: '',
+                    //     customize: function ( win ) {
+                    //       // $(win.document.body).empty()
+                          
+                    //       $(win.document.body).prepend($("<h1>", {
+                    //         text: "Báo cáo tháng " + $("#thang").val()
+                    //       })); //before the table             
+
+                    //       $(win.document.body).append('<h3>Người lập Hoàng</h3>'); //after the table
+                          
+                          
+                    //     }
+                    // }
+                ],
+                language: {
+                  url: "/json/language.json"
+                },
+            });
+
+        break;
+      case 'nhanvien':
+        $("input").removeClass("form-control")
+        $("input").addClass("form-control-plaintext")
+        $("input").prop('readonly', true);
+        break;
+      default:
+        // code block
+    }
+
+    $('#table_id tbody').on( 'click', 'button', function () {
+        var data = table.row( $(this).parents('tr') ).data();
+        if ($(this).attr("id") == "cap-nhat-ca"){
+          $.get("http://localhost:8080/api/thong-tin-ca?caid=" + data.maCa, function(data){
+            // alert(JSON.stringify(data))
+            $("#mType").html("update")
+            $("#capNhat").html("Cập nhật")
+            $("#tenCa").val(data["tenCa"])
+            $("#gioBatDau").val(data["gioBatDau"])
+            $("#gioKetThuc").val(data["gioKetThuc"])
+            $("#maCa").val(data["maCa"])
+          })
+        }
+        if ($(this).attr("id") == "xoa-ca"){
+          if (confirm('Bạn có chắc muốn xóa dữ liệu này?')){
+            $.ajax({
+                url: '/api/xoa-ca?maCa=' + data.maCa,
+                type: 'DELETE',
+                success: function(result) {
+                  alert("Xóa thành công")
+                  table.ajax.reload();
+                },
+                error: function(){
+                  alert("Xóa thất bại")
+                }
+
+            });
+          
+          } 
+          
+          }
+    } );
+
+    table.on( 'order.dt search.dt', function () {
+        table.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+    } ).draw();
+    $("#capNhat").click(function(){
+      //alert("Cap nhat")
+      data = {}
+      data["tenCa"] = $("#tenCa").val()
+      data["gioBatDau"] = $("#gioBatDau").val()
+      data["gioKetThuc"] = $("#gioKetThuc").val()
+      data["maCa"] = $("#maCa").val()
+      // alert(JSON.stringify(data))
+      if ($("#mType").html() === "update"){
+        // alert("Cập nhật ca")
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/api/cap-nhat-ca",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(){
+            setTimeout('', 5000);
+            alert("Cập nhật thành công")
+            table.ajax.reload();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Cập nhật thất bại")
+            //alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+            // location.reload();
+            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+            //   //alert(d);
+            //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+            //   $("#msg_" + d).addClass("alert alert-danger")
+            // })
+          }
+        })
+        //location.reload();
+      }
+      
+      if ($("#mType").html() === "add"){
+        console.log("Thêm ca")
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/api/them-ca",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(){
+            alert("Thêm thành công")
+            table.ajax.reload();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Thêm thất bại")
+            //alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+            // location.reload();
+            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+            //   //alert(d);
+            //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+            //   $("#msg_" + d).addClass("alert alert-danger")
+            // })
+          }
+        })
+        //location.reload();
+      }
+      
+
+    })
+
+    $("#themThongTinSanh").click(function(){      
+      $("#capNhat").html("Thêm")
+      $("#mType").html("add")
+
+      $("#mTitle").html("THÊM THÔNG TIN CA")
+    })
+
+  </script>
+</body>
+</html>

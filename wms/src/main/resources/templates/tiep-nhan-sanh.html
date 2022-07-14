@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head> 
+    <title>TRA CỨU HÓA ĐƠN</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <th:block th:insert="~{index :: libs}"></th:block>
+</head>
+<body class="nav-md">
+    <th:block th:insert="~{index :: menu-bar}"></th:block>
+    
+    <div class="container body">
+      <div class="main_container">
+       
+        <!-- page content -->
+        <div class="right_col" role="main" id="formTiepNhanSanh">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3 style="color:black">TIẾP NHẬN SẢNH</h3>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row" style="color:black">
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                    <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+  
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="tenSanh">Tên sảnh <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" class="form-control" id="tenSanh" placeholder="Nhập tên sảnh" value="" required>
+                          <div id="msg_tenSanh"></div>
+                        </div>
+                      </div>
+                      <div class="item form-group"> 
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="loaiSanh"  >Loại sảnh <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <select class="form-select form-control" id="loaiSanh" required>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                          </select> 
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="soLuongBanToiDa" style="color:black">Số bàn tối đa <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" class="form-control" id="soLuongBanToiDa" placeholder="Nhập số lượng bàn tối đa" style="color:black" required>
+                          <div id="msg_soLuongBanToiDa"></div>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="donGiaToiThieu" style="color:black">Đơn giá tối thiểu</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <input type="text" class="form-control" id="donGiaToiThieu" placeholder="" required="" readonly>
+                        </div>
+                      </div>
+                      <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="message" style="color:black">Ghi chú</label>
+                        <div class="col-md-6 col-sm-6 ">
+                          <textarea  class="form-control" id="ghiChu" ></textarea>
+                        </div>
+                      </div>
+  
+                      <div class="item form-group">
+                      </div>
+                      <div class="ln_solid"></div>
+                      <div class="item form-group">
+                        <div class="col-md-6 col-sm-6 offset-md-3">
+                          <button class="btn btn-success btn-lg" type="submit" >Đăng ký</button>
+                        </div>
+                      </div>
+  
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <th:block th:insert="~{index :: jsfiles}"></th:block>
+    <footer>
+      <div class="clearfix"></div>
+    </footer>
+    <script>
+      data = {}
+      dsLoaiSanhData = {}
+
+      $.get("http://localhost:8080/api/ds-loai-sanh", function(data){
+        $("#loaiSanh").empty()
+        $("#loaiSanh").append($("<option>", {
+          "class" : "selected disabled", 
+          text : "Chọn loại sảnh",
+          value : ""
+        }));
+        $.each(data, function(index, d){           
+            $("#loaiSanh").append($('<option>', { 
+                value: d.maLoaiSanh,
+                text : d.tenLoaiSanh
+            }))
+            dsLoaiSanhData[d.maLoaiSanh] = d
+        })
+        firstKey = Object.keys(dsLoaiSanhData)[0];
+        $("#donGiaToiThieu").val (0)
+       // alert(JSON.stringify(dsLoaiSanhData))
+        $("#loaiSanh").change(function(){
+          //alert(dsLoaiSanhData[$(this).val()].soLuongBanToiDa)
+          if ($(this).val() == ""){
+            $("#donGiaToiThieu").val(0);
+            
+          }else{
+            $("#donGiaToiThieu").val (dsLoaiSanhData[$(this).val()].donGiaBanToiThieu)
+        
+          }
+          })
+
+      })
+      $("#soLuongBanToiDa").focus(function(){
+        $("#msg_soLuongBanToiDa").empty();
+        $("#msg_soLuongBanToiDa").removeClass();
+      })
+
+      $("#tenSanh").focus(function(){
+        $("#msg_tenSanh").empty();
+        $("#msg_tenSanh").removeClass();
+      })
+      
+      $("#formTiepNhanSanh").submit(function(e){
+        e.preventDefault()
+        // alert("submit")
+        data["tenSanh"] = $("#tenSanh").val()
+        data["loaiSanh"] = $("#loaiSanh").val()
+        data["soLuongBanToiDa"] = $("#soLuongBanToiDa").val()
+        data["ghiChu"] = $("#ghiChu").val()
+        // alert(JSON.stringify(data))
+        $.ajax({
+          type: "POST",
+          contentType: "application/json",
+          url: "http://localhost:8080/api/dat-sanh",
+          data: JSON.stringify(data),
+          dataType: "json",
+          success: function(e){
+            alert("Tạo sảnh mới thành công")
+            location.reload();
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            alert("Tạo sảnh thất bại")
+            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+            //   //alert(d);
+            //   $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+            //   $("#msg_" + d).addClass("alert alert-danger")
+            // })
+          }
+        })
+      })
+    </script>
+</body>
+</html>

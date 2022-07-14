@@ -1,0 +1,512 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>TRA CỨU HÓA ĐƠN</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <th:block th:insert="~{index :: libs}"></th:block>
+
+</head>
+
+<body class="nav-md">
+    <th:block th:insert="~{index :: menu-bar}"></th:block>
+
+    <div class="container body">
+        <div class="main_container">
+            <div class="right_col" role="main">
+                <div class="">
+                    <div class="page-title">
+                        <div class="title_left">
+                            <h3>ĐẶT TIỆC CƯỚI</h3>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    
+                    <form style="width: 75%;margin-left: auto;margin-right: auto;">
+                        <div id="thong-tin-co-ban">
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="tenChuRe">Tên chú rể</label>
+                                    <input type="text" class="form-control" id="tenChuRe" name="tenChuRe" placeholder="Tên chú rể" value="Hoang" required
+                                        oninvalid="this.setCustomValidity('Hãy điền tên chú rể')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="tenCoDau">Tên cô dâu</label>
+                                    <input type="text" class="form-control" id="tenCoDau" name="tenCoDau" placeholder="Tên cô dâu" value="Tran" required
+                                        oninvalid="this.setCustomValidity('Hãy điền tên cô dâu')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="sdt">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="sdt" name="sdt" placeholder="Số điện thoại" value="0392261419" required
+                                        oninvalid="this.setCustomValidity('Hãy điền số điện thoại')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="ngayDaiTiec">Ngày Đãi tiệc</label>
+                                    <input type="date" class="form-control datepicker" id="ngayDaiTiec" name="ngayDaiTiec" value="2021-06-23" required
+                                        data-date-format="DD MMMM YYYY"   
+                                        oninvalid="this.setCustomValidity('Hãy chọn ngày đãi tiệc')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                                <div class="col">
+                                    <label for="dsCa">Ca</label>
+                                    <select class="form-control" id="dsCa" required
+                                        oninvalid="this.setCustomValidity('Hãy chọn ca')"
+                                        oninput="this.setCustomValidity('')">
+                                        
+                                    </select>
+                                </div>
+                                <div class="col">
+                                    <label for="dsSanh">Sảnh</label>
+                                    <select class="form-control" id="dsSanh" required
+                                        oninvalid="this.setCustomValidity('Hãy chọn sảnh')"
+                                        oninput="this.setCustomValidity('')">
+                                        <option>Sáng</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="soLuongBan">Số lượng bàn</label>
+                                    <input type="number" class="form-control" id="soLuongBan" name="soLuongBan" value="100"
+                                        placeholder="Số lượng bàn" required
+                                        oninvalid="this.setCustomValidity('Hãy nhập số lượng bàn')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class = "row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="soLuongBanDuTru">Số lượng bàn dự trữ</label>
+                                    <input type="number" class="form-control" id="soLuongBanDuTru" name="soLuongBan" value="10"
+                                        placeholder="Số lượng bàn dự trữ" required
+                                        oninvalid="this.setCustomValidity('Hãy nhập số lượng bàn dự trữ')"
+                                        oninput="this.setCustomValidity('')">
+                                </div>
+        
+                            </div>
+                            <div class="row" style="margin: 2%">
+                                <div class="col">
+                                    <label for="example-text-input">Tiền đặt cọc</label>
+                                    <input class="form-control" type="text" id="tienDatCoc" placeholder="Tiền đặt cọc" value="1000000" required
+                                    oninvalid="this.setCustomValidity('Hãy nhập tiền đặt cọc')"
+                                    oninput="this.setCustomValidity('')">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TABLE -->
+                        <div id="chon-mon-an" style="display: none; visibility: hidden;">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 ">
+                                  <div class="x_panel">
+                                    <div class="x_title" style="text-align: center;">
+                                        <h4>DANH SÁCH MÓN ĂN</h4>
+                                        <p>Giá bàn tối thiểu : <b id="giaBanToiThieu"></b></p>
+                                        
+                                    </div>
+                                    <div class="x_content">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="card-box table-responsive">
+                                            <table id="table_ma" class="table table-bordered" style="width:100%">                                                
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">STT</th>
+                                                        <th scope="col">Tên Món</th>
+                                                        <th scope="col">Đơn giá</th>
+                                                        <th scope="col">Ghi chú</th>
+                                                        <th scope="col">Chọn</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="dsMonAn">                                    
+                                                </tbody>
+                                            </table>
+                                            
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            
+                        </div>
+                        
+                        
+                          <div id="chon-dich-vu"  style="display: none; visibility: hidden;">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 ">
+                                  <div class="x_panel">
+                                    <div class="x_title" style="text-align: center;">
+                                        <h4>DANH SÁCH DỊCH VỤ</h4>
+                                    </div>
+                                    <div class="x_content">
+                                      <div class="row">
+                                        <div class="col-sm-12">
+                                          <div class="card-box table-responsive">
+                                            <table id="table_dv" class="table table-bordered" style="width:100%">                                                
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th scope="col">STT</th>
+                                                        <th scope="col">Tên Dịch vụ</th>                        
+                                                        <th scope="col">Đơn giá</th>
+                                                        <th scope="col">Số lượng</th>
+                                                        <th scope="col">Chọn</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="dsDichVu">                                    
+                                                </tbody>
+                                            </table>
+                                            
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                        </div>
+                        
+
+                        <div class="btn" style="margin:2%">
+                            <button type="button" id="btn-quay-lai" class="btn btn-success" style="display: none; visibility: hidden;">Quay lại</button>
+                            <button type="submit" id="btn-dat-tiec" class="btn btn-success">Tiếp theo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <th:block th:insert="~{index :: jsfiles}"></th:block>
+
+    <!-- Datatables -->
+    <script src="../vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="../vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="../vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="../vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="../vendors/jszip/dist/jszip.min.js"></script>
+    <script src="../vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="../vendors/pdfmake/build/vfs_fonts.js"></script>
+    <script>
+        current = "#thong-tin-co-ban";
+        data = {}
+        // dsDichVu = []
+        // dsMonAn = []
+
+        
+        var table_ma = $('#table_ma').DataTable({
+                paging: true,
+                select: true,
+                order: [ [ 1, 'asc' ] ],
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                language: {
+                  url: "/json/language.json"
+                },
+                ajax: {
+                    url: '/api/ds-mon-an',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": null,                      
+                    },               
+                    { 
+                      "data": "tenMonAn",                      
+                    },                    
+                    { "data": "donGia",                      
+                    },
+                    { 
+                      'data': 'maMonAn',
+                      "targets": 4, 
+                      "render": function( data, type){
+                        return '<textarea ' 
+                            + 'id="ghichu-' + data + '" '                         
+                            + 'style="border-style: none;width: 100%;" '                            
+                            + '</textarea> ' 
+                           ;
+                        
+                      }
+                    },
+                    { 
+                      'data': 'maMonAn',
+                      "targets": 4, 
+                      "render": function( data, type){
+                        return '<input ' 
+                            + 'type="checkbox" '                                                      
+                            + 'value="' + data + '" />'
+                        
+                      }
+                    }              
+                ],                
+                
+            })            
+
+        table_ma.on( 'order.dt search.dt', function () {
+            table_ma.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw(); 
+
+        
+        var table_dv = $('#table_dv').DataTable({
+                paging: true,
+                select: true,
+                order: [ [ 1, 'asc' ] ],
+                lengthMenu: [ [10, 25, 50, -1], [10, 25, 50, "All"] ],
+                language: {
+                  url: "/json/language.json"
+                },
+                ajax: {
+                    url: '/api/ds-dich-vu',
+                    dataSrc: ''
+                    
+                },
+                columns: [     
+                    {
+                      "data": null,                      
+                    },               
+                    { 
+                      "data": "tenDichVu",                      
+                    },                    
+                    { "data": "donGia",                      
+                    },
+                    { 
+                      'data': 'maDichVu',
+                      "targets": 4, 
+                      "render": function( data, type){
+                        return '<input ' 
+                            + 'type="number" ' 
+                            + 'id="soluong-' + data + '" '                         
+                            + 'style="border-style: none;width: 100%;" '   
+                            + 'value="1" '                            
+                            + '/> ' 
+                           ;
+                        
+                      }
+                    },
+                    { 
+                      'data': 'maDichVu',
+                      "targets": 4, 
+                      "render": function( data, type){
+                        return '<input ' 
+                            + 'type="checkbox" '                                                      
+                            + 'value="' + data + '" />'
+                        
+                      }
+                    }              
+                ],
+                
+            })
+            table_dv.on( 'order.dt search.dt', function () {
+                table_dv.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+        } );
+        } ).draw(); 
+        
+        dsBanToiDa = {}
+        $.get( "http://localhost:8080/api/ds-sanh", function( data ) {
+            //alert(JSON.stringify(data));
+            $("#dsSanh").empty()
+            $("#dsSanh").append($("<option>", {
+                "class" : "selected disabled", 
+                text : "Chọn chọn sảnh",
+                value : ""
+            }));
+            $.each(data, function(index, d){
+                $("#dsSanh").append($('<option>', { 
+                    value: d.maSanh,
+                    text : d.tenSanh
+                }))
+                dsBanToiDa[d.maSanh] = d
+            })
+        });
+        
+       
+        $.get( "http://localhost:8080/api/ds-ca", function( data ) {
+            //alert(JSON.stringify(data));
+            $("#dsCa").empty()
+            $("#dsCa").append($("<option>", {
+                "class" : "selected disabled", 
+                text : "Chọn ca",
+                value : ""
+            }));
+            $.each(data, function(index, d){
+                $("#dsCa").append($('<option>', { 
+                    value: d.maCa,
+                    text : d.tenCa
+                }))
+            })
+        });
+        
+        $("form").submit(function(e){
+            e.preventDefault();
+            
+            switch(current) {
+                case "#thong-tin-co-ban":
+                    // alert(JSON.stringify(dsBanToiDa))
+                    tongLuongBanDaDat = Number($("#soLuongBan").val()) + Number($("#soLuongBanDuTru").val()) 
+                    soLuongBanCoTheDat =  Number(dsBanToiDa[$("#dsSanh").val()].soLuongBanToiDa)
+                    // alert(dsBanToiDa[$("#dsSanh").val()])
+                    // alert(tongLuongBanDaDat > soLuongBanCoTheDat)
+                    if (tongLuongBanDaDat > soLuongBanCoTheDat){
+                        alert(dsBanToiDa[$("#dsSanh").val()].tenSanh + " chỉ có thể đặt " + dsBanToiDa[$("#dsSanh").val()].soLuongBanToiDa + " bàn")     
+                        break;                   
+                    }
+                    
+                    var tiepTuc = true
+                    $.get("/api/kiem-tra-tiec-cuoi?"
+                                + "ngayDatTiec=" + $("#ngayDaiTiec").val()
+                                + "&maCa=" + $("#dsCa").val()
+                                + "&maSanh=" + $("#dsSanh").val()
+                                , function(d){
+                        if (d){
+                            
+                            $("#thong-tin-co-ban").css({"display": "none", "visibility" : "hidden"});
+                            $("#chon-mon-an").css({"display": "block", "visibility" : "visible"});
+                            $("#chon-dich-vu").css({"display": "none", "visibility" : "hidden"});
+                            $("#btn-quay-lai").css({"display": "inline", "visibility" : "visible"})
+                            current = "#chon-mon-an"
+                            data["tenChuRe"] = $("#tenChuRe").val()
+                            data["tenCoDau"] = $("#tenCoDau").val()
+                            data["sdt"] = $("#sdt").val()
+                            data["ngayDaiTiec"] = $("#ngayDaiTiec").val()
+                            data["ca"] = $("#dsCa").val()
+                            data["sanh"] = $("#dsSanh").val()
+                            data["soLuongBan"] = $("#soLuongBan").val()
+                            data["soLuongBanDuTru"] = $("#soLuongBanDuTru").val()
+                            data["tienDatCoc"] = $("#tienDatCoc").val()
+                            // alert(JSON.stringify(data))
+                            //alert( $("#ngayDaiTiec").val())
+                            
+                            // alert()
+                            $("#giaBanToiThieu").text(dsBanToiDa[data["sanh"]].donGiaBanToiThieu)
+                        }
+                        else{
+                            alert("Không thể đặt vào ngày " + $("#ngayDaiTiec").val() 
+                            + " ca " + $("#dsCa option[value='" + $("#dsCa").val() + "']").text()
+                            + " tại sảnh " + $("#dsSanh option[value='" + $("#dsSanh").val() + "']").text())
+                        }
+                    })
+                   
+                    break;
+                case "#chon-mon-an":                                                            
+                    dsMonAn = []
+                    tongTienMonAn = 0
+                    table_ma.$('input[type="checkbox"]:checked').each(function(){
+                        var data = table_ma.row( $(this).parents('tr') ).data();
+                        // alert(JSON.stringify(data))
+                        tongTienMonAn += Number(data.donGia)
+                        var monAn = {
+                            maMonAn :  data.maMonAn,
+                            ghiChu : table_ma.$("#ghichu-" + data.maMonAn ).val()
+                        }
+                        
+                        dsMonAn.push(monAn)
+                    });
+                    if (tongTienMonAn < Number($("#giaBanToiThieu").text())){
+                        alert("Bạn phải đặt nhiều hơn hoặc bằng : " + Number($("#giaBanToiThieu").text())
+                                + "\nSố tiền món ăn bạn đã đăt là : " + tongTienMonAn)
+                        break
+                    }
+
+                    $("#thong-tin-co-ban").css({"display": "none", "visibility" : "hidden"});
+                    $("#chon-mon-an").css({"display": "none", "visibility" : "hidden"});
+                    $("#chon-dich-vu").css({"display": "block", "visibility" : "visible"});
+                    $("#btn-quay-lai").css({"display": "inline", "visibility" : "visible"}) 
+                    // alert(JSON.stringify(dsMonAn))                                     
+                    data["monAn"] = dsMonAn
+                    current = "#chon-dich-vu"
+                    break;
+                case "#chon-dich-vu":
+                    //alert("Dat tiec!!");
+                    dsDichVu = []
+                    table_dv.$('input[type="checkbox"]:checked').each(function(){
+                        var data = table_dv.row( $(this).parents('tr') ).data();
+                        // alert(data.maDichVu)
+                        var dichVu = {
+                            maDichVu :  data.maDichVu,
+                            soLuong :   table_dv.$("#soluong-"  + data.maDichVu).val()
+                        }
+                        
+                        dsDichVu.push(dichVu)
+                    });
+                                                            
+                    data["dichVu"] = dsDichVu
+                    // alert(JSON.stringify(dsDichVu))    
+                    // alert(JSON.stringify(data))
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "http://localhost:8080/api/dat-tiec",
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        success: function(e){
+                            alert("Đặt tiệc cưới thành công")
+                            window.location.href = "/tra-cuu-tiec-cuoi";
+                            // alert("Create success")
+                            // location.reload();
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert("Đặt tiệc cưới không thành công")
+                            // alert(JSON.stringify(XMLHttpRequest["responseJSON"]["errorMessageList"]));
+                            // $.each(Object.keys(XMLHttpRequest["responseJSON"]["errorMessageList"][0]), function(index, d){
+                            // //alert(d);
+                            // $("#msg_" + d).html(XMLHttpRequest["responseJSON"]["errorMessageList"][0][d])
+                            // $("#msg_" + d).addClass("alert alert-danger")
+                            // })
+                        }
+                    }
+                    )
+            }
+        })
+
+        $("#btn-quay-lai").click(function(e){
+            e.preventDefault();
+            
+            switch(current) {
+                case "#chon-dich-vu":
+                    $("#thong-tin-co-ban").css({"display": "none", "visibility" : "hidden"});
+                    $("#chon-mon-an").css({"display": "block", "visibility" : "visible"});
+                    $("#chon-dich-vu").css({"display": "none", "visibility" : "hidden"});
+                    $("#btn-quay-lai").css({"display": "inline", "visibility" : "visible"})
+                    current = "#chon-mon-an"
+                    break;
+                case "#chon-mon-an":
+                    $("#thong-tin-co-ban").css({"display": "block", "visibility" : "visible"});
+                    $("#chon-mon-an").css({"display": "none", "visibility" : "hidden"});
+                    $("#chon-dich-vu").css({"display": "none", "visibility" : "hidden"});
+                    $("#btn-quay-lai").css({"display": "none", "visibility" : "hidden"})   
+                    current = "#thong-tin-co-ban"
+                    break;
+                case "#thong-tin-co-ban":
+                    
+            }
+
+        })
+        
+    </script>
+</body>
+
+</html>
